@@ -1,0 +1,29 @@
+name: QQ阅读APP
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/20 23,0-14 * * *"
+  watch:
+    types: [started]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 10.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+      - name: npm install
+        run: |
+          npm install
+      - name: "运行【QQ阅读】"
+        run: |
+          node QQread.js
+        env:
+          QQ_QQreadURL: ${{ secrets.QQ_QQreadURL }}
+          PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN }}
+          PUSH_PLUS_USER: ${{ secrets.PUSH_PLUS_USER }}
