@@ -1,9 +1,9 @@
-name: zmsp
+name: ymz
 
 on:
   workflow_dispatch:
   schedule:
-     - cron: '*/15 * * * *'
+     - cron: '23 2 * * *'
   watch:
     types: started
 jobs:
@@ -11,8 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-        ZM_HD: ${{ secrets.ZM_HD }}
-        ZM_BODY: ${{ secrets.ZM_BODY }}
+        YMZ_HD: ${{ secrets.YMZ_HD }}
+        YMZ_BODY: ${{ secrets.YMZ_BODY }}
+        YMZ_BODY1: ${{ secrets.YMZ_BODY1 }}
         TZ: Asia/shanghai
     steps:
       - name: Checkout
@@ -25,10 +26,10 @@ jobs:
       - name: npm install
         run: |
           npm install
-      - name: '运行 【zmsp】'
-        if: env.ZM_HD
+      - name: '运行 【ymz】'
+        if: env.YMZ_HD
         run: |
-          node scripts/zmsp.js
+          node scripts/ymz.js
         env:
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}

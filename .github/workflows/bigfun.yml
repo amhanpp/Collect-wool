@@ -1,9 +1,9 @@
-name: zmsp
+name: bigfun
 
 on:
   workflow_dispatch:
   schedule:
-     - cron: '*/15 * * * *'
+     - cron: '39 3 * * *'
   watch:
     types: started
 jobs:
@@ -11,8 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-        ZM_HD: ${{ secrets.ZM_HD }}
-        ZM_BODY: ${{ secrets.ZM_BODY }}
+       #BF_URL: ${{ secrets.BF_URL }}
+        BF_HD: ${{ secrets.BF_HD }}
+        BF_BD: ${{ secrets.BF_BD }}
         TZ: Asia/shanghai
     steps:
       - name: Checkout
@@ -25,10 +26,10 @@ jobs:
       - name: npm install
         run: |
           npm install
-      - name: '运行 【zmsp】'
-        if: env.ZM_HD
+      - name: '运行 【bigfun】'
+        if: env.BF_HD
         run: |
-          node scripts/zmsp.js
+          node scripts/bigfun.js
         env:
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
